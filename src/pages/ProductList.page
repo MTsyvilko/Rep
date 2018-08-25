@@ -1,0 +1,40 @@
+<apex:page sidebar="false" controller="ProductListController">
+    <apex:slds />
+    <br /><h1 class="slds-text-heading_medium"><b>Product List</b></h1>
+    <table class="slds-table_bordered">
+        <thead>
+            <tr height="30">
+                <th class="slds-text-heading_small">IMAGE</th>
+                <th></th>
+                <th class="slds-text-heading_small">TTITLE</th>
+                <th class="slds-text-heading_small">DESCRIPTION</th>
+                <th class="slds-text-heading_small">COST</th>
+                <th></th>
+            </tr>
+        </thead>
+            <tbody>
+                <apex:repeat value="{!products}" var="p">
+                    <tr>
+                        <td class="slds-size_1-of-6 slds-p-vertical_x-small"><img src="{!p.Image_Url__c}"/></td>
+                        <td class="slds-size_1-of-6 slds-p-around_x-small slds-text-align_center"><a target="_blank" href="/apex/DetailDescription?id={!p.Id}">{!p.Name}</a></td>
+                        <td class="slds-size_3-of-6 slds-p-right_small slds-text-align_left">{!p.Title__c}</td>
+                        <td class="slds-size_3-of-6 slds-p-right_small slds-text-align_left">
+                            <apex:outputPanel rendered="{!LEN(p.Description__c) <= 100}">
+                                {!p.Description__c}
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!LEN(p.Description__c) > 100}">
+                                {!LEFT(p.Description__c, 100) + '...'}
+                                <a target="_blank" href="/apex/DetailDescription?id={!p.Id}">More</a>
+                            </apex:outputPanel>                      
+                        </td>
+                        <td class="slds-size_1-of-6 slds-p-around_x-small slds-text-align_center">{!p.Unit_Price__c}$</td>
+                        <td class="slds-size_1-of-6 slds-p-around_x-small slds-text-align_center">
+                            <apex:form >    
+                                <apex:commandButton styleclass="slds-button slds-button_brand" value="Buy" action="/apex/OrderProduct?id={!p.Id}"></apex:commandButton>
+                            </apex:form>     
+                        </td>
+                    </tr>               
+               </apex:repeat>
+            </tbody>
+    </table>
+</apex:page>

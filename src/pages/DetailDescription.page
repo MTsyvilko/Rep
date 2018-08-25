@@ -1,0 +1,34 @@
+<apex:page docType="html-5.0" sidebar="false" controller="ProductDetailDescriptionController">
+    <apex:slds />  
+    <apex:variable value="{!product}" var="p" />
+   <center><h1 class="slds-text-heading_medium"><b>{!p.Name}</b></h1></center>
+  
+    <table class="slds-table_bordered">
+            <tbody>
+                <tr>
+                    <td class="slds-size_1-of-2 slds-p-around_x-small  slds-text-align_center"><img src="{!p.Image_Url__c}"/></td>
+                    <td class="slds-size_1-of-2">
+                        <h1 class="slds-text-heading_medium">AMOUNT:</h1>
+                        {!p.Units_Available__c}
+                     
+                        <h1 class="slds-text-heading_medium">TITLE:</h1>
+                        {!p.Title__c}
+                     
+                        <h1 class="slds-text-heading_medium">DESCRIPTION:</h1>
+                        {!p.Description__c}
+                       
+                    </td>  
+               </tr>
+            </tbody>
+    </table>
+    <apex:form >                                          
+                <center>
+                    <apex:commandButton styleclass="slds-button slds-button_neutral"
+                    value="To Shopping" action="/apex/ProductList">
+                    </apex:commandButton>
+                    <apex:commandButton styleclass="slds-button slds-button_brand"
+                    value="Buy" action="/apex/OrderProduct?id={!p.Id}">
+                    </apex:commandButton>
+                </center>              
+    </apex:form>   
+</apex:page>

@@ -1,0 +1,35 @@
+<apex:page docType="html-5.0" sidebar="false"  controller="ProductDetailDescriptionController">
+    <apex:slds />
+    <apex:form id="form"> 
+        <center><h1 class="slds-text-heading_medium"><b>Order Form</b></h1></center>
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSection title="Contact Information" columns="1">                       
+                    <apex:inputField styleclass="slds-input" value="{!buyer.FirstName}" />             
+                    <apex:inputField styleclass="slds-input" value="{!buyer.LastName}" />                     
+                    <apex:inputField styleclass="slds-input" value="{!buyer.Email}" />
+                </apex:pageBlockSection>
+           
+                <apex:pageBlockSection title="Product Information" columns="1">                
+                    <apex:outputText >Product Name {!product.Name}</apex:outputText>        
+                    <apex:outputText >Cost {!product.Unit_Price__c}$</apex:outputText>                   
+                    <apex:inputField styleclass="slds-input" value="{!order.Units__c}" 
+                                     label="Unit Count"
+                                     onchange="calculateTotalAmount()"
+                                     />  
+                    <apex:outputPanel id="totalAmount">Total Amount {!order.Order_Amount__c}$</apex:outputPanel>  
+                    <apex:actionFunction name="calculateTotalAmount" action="{!calculateTotalAmount}" rerender="form" />
+                </apex:pageBlockSection>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+              <center>
+        <button type="button" 
+                class="slds-button slds-button_neutral" 
+                onclick="history.back()">To Shopping</button>  
+        <apex:commandButton styleclass="slds-button slds-button_brand" value="Buy" action="{!buy}" /> 
+        </center>
+        <apex:pageMessages />
+     
+    </apex:form>
+    
+</apex:page>
